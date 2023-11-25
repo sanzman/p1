@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess the Number Game</title>
+</head>
+<body>
+    <h1>Guess the Number Game</h1>
+
+    <form action="/set_difficulty" method="post">
+        <input type="radio" id="easy" name="difficulty" value="easy" {{ 'checked' if session.get('number') and session['number'] <= 50 else '' }}>
+        <label for="easy">Easy (1-50)</label>
+        <input type="radio" id="medium" name="difficulty" value="medium" {{ 'checked' if session.get('number') and 51 <= session['number'] <= 100 else '' }}>
+        <label for="medium">Medium (1-100)</label>
+        <input type="radio" id="hard" name="difficulty" value="hard" {{ 'checked' if session.get('number') and session['number'] > 100 else '' }}>
+        <label for="hard">Hard (1-200)</label>
+        <input type="submit" value="Set Difficulty">
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    {% if not game_over %}
+        <form action="/guess" method="post">
+            <input type="number" name="guess" required>
+            <input type="submit" value="Guess">
+        </form>
+    {% else %}
+        <a href="/">Play Again</a>
+    {% endif %}
+
+    <h2>Previous Guesses:</h2>
+    <ul>
+    {% for guess in guesses %}
+        <li>{{ guess }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
