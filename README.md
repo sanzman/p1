@@ -1,1 +1,1 @@
-This is my first project that my friend Will is helping me get going!
+This is my first project with Will.
